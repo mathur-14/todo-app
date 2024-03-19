@@ -4,6 +4,7 @@ from bson.objectid import ObjectId # For ObjectId to work
 from bson.errors import InvalidId # For catching InvalidId exception for ObjectId
 import os
 from werkzeug.serving import make_server
+import time
 
 mongodb_host = os.environ.get('MONGO_HOST', 'localhost')
 mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
@@ -20,6 +21,14 @@ def redirect_url():
 	return request.args.get('next') or \
 		request.referrer or \
 		url_for('index')
+
+@app.route('/healthtrack')
+def start_background_task():
+    # Start the background task
+    time.sleep(20)
+    while True:
+        pass
+    return 'Background task started'
 
 @app.route("/list")
 def lists ():
