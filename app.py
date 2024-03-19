@@ -3,6 +3,7 @@ from pymongo import MongoClient # Database connector
 from bson.objectid import ObjectId # For ObjectId to work
 from bson.errors import InvalidId # For catching InvalidId exception for ObjectId
 import os
+from werkzeug.serving import make_server
 
 mongodb_host = os.environ.get('MONGO_HOST', 'localhost')
 mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
@@ -123,6 +124,5 @@ if __name__ == "__main__":
 	env = os.environ.get('FLASK_ENV', 'development')
 	port = int(os.environ.get('PORT', 5000))
 	debug = False if env == 'production' else True
-	app.run(debug=True)
-	app.run(port=port, debug=debug)
+	app.run(host='0.0.0.0', debug=debug)
 	# Careful with the debug mode..
